@@ -1,0 +1,116 @@
+.admin-panel {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.admin-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.admin-tabs button {
+  padding: 10px 20px;
+  border: none;
+  background: #e0e0e0;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.admin-tabs .active {
+  background: #007bff;
+  color: white;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-form label {
+  font-weight: bold;
+}
+
+.admin-form select,
+.admin-form input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.admin-form button {
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.message {
+  margin-top: 10px;
+  color: green;
+  font-weight: 500;
+}
+
+.placeholder-tab {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+.custom-alert {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  animation: fadeIn 0.5s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.alert-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-icon {
+  display: flex;
+  align-items: center;
+}
+
+.alert-text {
+  white-space: nowrap;
+}
+
+.alert-close {
+  cursor: pointer;
+  color: #ffdddd;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+}
+.alert-close:hover
+{
+    color: red;
+    font-weight: bold;
+}

@@ -1,0 +1,171 @@
+.home-container {
+  text-align: center;
+}
+
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #DBEAFE;
+  padding: 5rem 2rem;
+  max-width: auto;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+font-weight: 700;
+  color: #1D4ED8;
+}
+
+.highlight {
+  color: #2b2bff;
+}
+
+.hero-section p {
+  font-size: 1rem;  
+  color: grey;
+  
+}
+
+.quiz-button {
+  background: #2b2bff;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none; 
+  outline: none;  
+  margin-top: 2rem;
+padding: 0.75rem 1.5rem;
+}
+
+.features-section {
+  padding-top: 5rem;   
+  padding-bottom: 5rem;
+  max-width: 1200px;   
+  margin-left: auto;  
+  margin-right: auto;
+}
+
+.features-section h2 {
+  font-size: 1.875rem; 
+  font-weight: 700;    
+  text-align: center;
+  margin-bottom: 3rem; 
+  color: #1F2937;      
+  text-transform: capitalize;
+}
+
+.features-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem; 
+}
+
+.features-grid > .feature-card:nth-child(-n+3) {
+  flex: 0 1 calc((100% - 2 * 3rem) / 3);
+}
+
+.features-grid > .feature-card:nth-child(n+4) {
+  flex: 0 1 calc((100% - 1 * 3rem) / 2);
+}
+
+
+.feature-card {
+  max-width: 24rem;    
+  background-color: white;
+  padding: 1.4rem;     
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.1); 
+  transition: all 0.3s ease;
+  transform: translateZ(0);
+  text-decoration: none;
+  color: inherit;
+  text-align: left;
+}
+
+.feature-card:hover {
+  box-shadow: 0 10px 15px rgba(0,0,0,0.15); 
+  transform: scale(1.05); 
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;  
+  font-weight: 700;
+  color: #2263f0;      
+  margin-bottom: 1rem; 
+  text-transform: capitalize;
+}
+
+.feature-card p {
+  color: #4B5563;     
+  line-height: 1.5;
+}
+
+
+.cta-section {
+  background: #1a53f0;
+  color: white;
+  padding: 3rem 2rem;
+}
+
+.cta-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-button {
+  background: white;
+  color: #1a53f0;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .features-grid > :nth-child(4),
+  .features-grid > :nth-child(5) {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-section h1 {
+    font-size: 1.8rem;
+  }
+
+  .quiz-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .feature-card {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .cta-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .contact-button {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}

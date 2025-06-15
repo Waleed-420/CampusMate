@@ -1,0 +1,141 @@
+.university-page {
+  
+  margin: auto;
+}
+
+.uni-details {
+  margin: 20px 0;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.uni-details a {
+  background-color: #165dff;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+
+
+
+.rating-form {
+  margin: 30px 20px;
+}
+
+.rating-form form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.rating-form input,
+.rating-form select {
+  padding: 6px;
+  border-radius: 5px;
+}
+
+.rating-form button {
+  padding:16px 12px;
+  background-color:rgba(0, 122, 255, 0.8);
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hostels {
+  margin: 20px 40px ;
+}
+
+.hostel-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.hostel-card {
+  width: 280px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.hostel-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.hostel-card h4 {
+  margin: 10px;
+}
+
+.hostel-card p {
+  margin: 0 10px 10px;
+  font-size: 0.9rem;
+}
+
+.university-page .carousel img {
+  width: 1000px;
+  height: 300px;
+  object-fit: cover; 
+}
+
+.all-ratings
+{
+  display: flex;
+  flex-direction: column;
+}
+.rate-me
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+
+.rating-item {
+ padding: 16px;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(96, 166, 241, 0.4);
+  transition: box-shadow 0.3s ease;
+  
+}
+
+
+
+
+.custom-textarea {
+  width: 500px;
+  height: 150px;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 122, 255, 0.4);
+  transition: box-shadow 0.3s ease;
+}
+
+.custom-textarea:focus {
+  box-shadow: 0 0 12px rgba(0, 122, 255, 0.8);
+  border-color: rgb(0, 122, 255);
+}

@@ -1,0 +1,67 @@
+[
+  {
+    "id": "1749839209063",
+    "name": "event_images",
+    "type": "Need Based",
+    "coverage": "University + Hostel + Stipend",
+    "registrationLink": "http://localhost:5173/admin",
+    "validTill": "2025-07-03",
+    "createdAt": "2025-06-13T18:26:49.063Z"
+  },
+  {
+    "id": "1749838210587",
+    "type": "Need Based",
+    "coverage": "Fee",
+    "registrationLink": "http://localhost:5173/admin",
+    "createdAt": "2025-06-13T18:10:10.587Z"
+  },
+  {
+    "id": "1749838145788",
+    "type": "Merit Based",
+    "coverage": "University + Hostel",
+    "registrationLink": "http://localhost:5173/admin",
+    "createdAt": "2025-06-13T18:09:05.788Z"
+  },
+  {
+    "id": "1749838066782",
+    "type": "Need Based",
+    "coverage": "University + Hostel",
+    "registrationLink": "http://localhost:5173/admin",
+    "createdAt": "2025-06-13T18:07:46.782Z"
+  },
+  {
+    "id": "1749837944013",
+    "type": "Need Based",
+    "coverage": "University + Hostel",
+    "registrationLink": "http://localhost:5173/admin",
+    "createdAt": "2025-06-13T18:05:44.013Z"
+  },
+  {
+    "id": "1749837863219",
+    "type": "Merit Based",
+    "coverage": "Fee",
+    "registrationLink": "http://localhost:5173/admin",
+    "createdAt": "2025-06-13T18:04:23.219Z"
+  },
+  {
+    "id": "1749837497456",
+    "type": "Merit Based",
+    "coverage": "University + Hostel",
+    "registrationLink": "http://localhost:5173/admin",
+    "createdAt": "2025-06-13T17:58:17.456Z"
+  },
+  {
+    "id": "1749836624906",
+    "type": "Need Based",
+    "coverage": "University + Hostel",
+    "registrationLink": "http://localhost:5173/admin",
+    "createdAt": "2025-06-13T17:43:44.906Z"
+  },
+  {
+    "id": "1749836591647",
+    "type": "Merit Based",
+    "coverage": "University + Hostel + Stipend",
+    "registrationLink": "http://localhost:5173/admin",
+    "createdAt": "2025-06-13T17:43:11.647Z"
+  }
+]

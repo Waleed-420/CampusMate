@@ -1,0 +1,305 @@
+[
+  {
+    "id": "uni1",
+    "name": "University of the Punjab",
+    "location": "Lahore",
+    "percentage":40,
+    "latitude": 31.5005,
+  "longitude": 74.3195,
+    "images": ["/images/punjab1.jpg", "/images/punjab2.jpg", "/images/punjab3.jpg"],
+    "fee": 120000,
+    "bachelorsCourses": ["BSCS", "BBA", "LLB"],
+    "scholarship": true,
+    "about": "One of the oldest universities in Pakistan.",
+    "enrollmentLink": "https://pu.edu.pk",
+    "hostels": [
+      {
+        "name": "Iqbal Hostel",
+        "roomSharing": "2-person",
+        "price": 8000,
+        "distance": "0.5 km",
+        "latitude": 31.5020,
+      "longitude": 74.3150,
+        "image": "/images/hostel1.jpg"
+      }
+    ],
+    "ratings": [
+      { "username": "Ali", "stars": 4, "comment": "Great academic environment." },
+      { "username": "Hassan", "stars": 5, "comment": "Top-notch faculty and facilities." },
+      { "username": "Zainab", "stars": 4, "comment": "Hostels are good and affordable." },
+      { "username": "Waleed", "stars": 3, "comment": "Needs improvement in admin staff." },
+      { "username": "Laiba", "stars": 5, "comment": "Love the campus and library." }
+    ]
+  },
+  {
+    "id": "uni2",
+    "name": "COMSATS University",
+    "location": "Islamabad",
+    "percentage":60,
+    "latitude": 31.5005,
+  "longitude": 74.3195,
+    "images": ["/images/comsats1.jpg", "/images/comsats2.jpg", "/images/comsats3.jpg"],
+    "fee": 160000,
+    "bachelorsCourses": ["BSCS", "Electrical Engineering", "Mathematics"],
+    "scholarship": true,
+    "about": "Well-reputed for engineering and IT.",
+    "enrollmentLink": "https://comsats.edu.pk",
+    "hostels": [
+      {
+        "name": "Capital Residency",
+        "roomSharing": "2-person",
+        "price": 10000,
+        "distance": "1 km",
+        "image": "/images/hostel2.jpg"
+      }
+    ],
+    "ratings": [
+      { "username": "Aliha", "stars": 5, "comment": "Excellent for CS programs." },
+      { "username": "Mehwish", "stars": 4, "comment": "Supportive faculty and labs." },
+      { "username": "Waleed", "stars": 3, "comment": "Crowded at times." },
+      { "username": "Hassan", "stars": 4, "comment": "Very good extracurriculars." },
+      { "username": "Zainab", "stars": 5, "comment": "Highly recommend for IT students." }
+    ]
+  },
+  {
+    "id": "uni3",
+    "name": "Lahore University of Management Sciences (LUMS)",
+    "location": "Lahore",
+    "percentage":40,
+    "latitude": 31.5005,
+  "longitude": 74.3195,
+    "images": ["/images/lums1.jpg", "/images/lums2.jpg", "/images/lums3.jpg"],
+    "fee": 400000,
+    "bachelorsCourses": ["BSc Economics", "CS", "Law"],
+    "scholarship": true,
+    "about": "Top business and management school.",
+    "enrollmentLink": "https://lums.edu.pk",
+    "hostels": [
+      {
+        "name": "LUMS Hostel",
+        "roomSharing": "2-person",
+        "price": 15000,
+        "distance": "on-campus",
+        "image": "/images/hostel3.jpg"
+      }
+    ],
+    "ratings": [
+      { "username": "Laiba", "stars": 5, "comment": "World-class faculty." },
+      { "username": "Ali", "stars": 4, "comment": "Business school is amazing." },
+      { "username": "Mehwish", "stars": 5, "comment": "Loved the campus life." },
+      { "username": "Waleed", "stars": 4, "comment": "Expensive but worth it." },
+      { "username": "Hassan", "stars": 5, "comment": "Top-tier education." }
+    ]
+  },
+  {
+    "id": "uni4",
+    "name": "NED University",
+    "location": "Karachi",
+    "percentage":70,
+    "latitude": 31.5005,
+  "longitude": 74.3195,
+    "images": ["/images/ned1.jpg", "/images/ned2.jpg", "/images/ned3.jpg"],
+    "fee": 110000,
+    "bachelorsCourses": ["Mechanical Engineering", "Civil Engineering", "CS"],
+    "scholarship": false,
+    "about": "Oldest engineering university in Karachi.",
+    "enrollmentLink": "https://www.neduet.edu.pk",
+    "hostels": [
+      {
+        "name": "City Hostel",
+        "roomSharing": "2-person",
+        "price": 9000,
+        "distance": "1.5 km",
+        "image": "/images/hostel4.jpg"
+      }
+    ],
+    "ratings": [
+      { "username": "Zainab", "stars": 4, "comment": "Good practical experience." },
+      { "username": "Laiba", "stars": 3, "comment": "Crowded but good value." },
+      { "username": "Ali", "stars": 4, "comment": "Solid engineering programs." },
+      { "username": "Mehwish", "stars": 5, "comment": "Teachers are very professional." },
+      { "username": "Waleed", "stars": 4, "comment": "Affordable quality education." }
+    ]
+  },
+  {
+    "id": "uni5",
+    "name": "FAST-NUCES",
+    "location": "Karachi",
+    "percentage":80,
+    "latitude": 31.5005,
+  "longitude": 74.3195,
+    "images": ["/images/fast1.jpg", "/images/fast2.jpg", "/images/fast3.jpg"],
+    "fee": 175000,
+    "bachelorsCourses": ["BSCS", "BBA"],
+    "scholarship": true,
+    "about": "Leading university for computer science.",
+    "enrollmentLink": "https://nu.edu.pk",
+    "hostels": [
+      {
+        "name": "Digital Hostel",
+        "roomSharing": "2-person",
+        "price": 11000,
+        "distance": "1 km",
+        "image": "/images/hostel5.jpg"
+      }
+    ],
+    "ratings": [
+      { "username": "Aliha", "stars": 5, "comment": "Perfect for CS students." },
+      { "username": "Hassan", "stars": 4, "comment": "Tough but rewarding." },
+      { "username": "Zainab", "stars": 3, "comment": "Needs better facilities." },
+      { "username": "Ali", "stars": 5, "comment": "Highly competitive." },
+      { "username": "Mehwish", "stars": 4, "comment": "Great placements." }
+    ]
+  },
+  {
+    "id": "uni6",
+    "name": "University of Faisalabad",
+    "location": "Faisalabad",
+    "percentage":40,
+    "latitude": 31.5005,
+  "longitude": 74.3195,
+    "images": ["/images/faisalabad1.jpg", "/images/faisalabad2.jpg", "/images/faisalabad3.jpg"],
+    "fee": 95000,
+    "bachelorsCourses": ["Pharmacy", "DPT", "BSCS"],
+    "scholarship": false,
+    "about": "Known for health sciences programs.",
+    "enrollmentLink": "https://tuf.edu.pk",
+    "hostels": [
+      {
+        "name": "Allama Hostel",
+        "roomSharing": "2-person",
+        "price": 7000,
+        "distance": "0.8 km",
+        "image": "/images/hostel6.jpg"
+      }
+    ],
+
+    "ratings": [
+      { "username": "Waleed", "stars": 4, "comment": "Nice health programs." },
+      { "username": "Zainab", "stars": 3, "comment": "Average management." },
+      { "username": "Laiba", "stars": 5, "comment": "Good for pharmacy." },
+      { "username": "Aliha", "stars": 4, "comment": "Clean campus." },
+      { "username": "Hassan", "stars": 4, "comment": "Friendly environment." }
+    ]
+  },
+  {
+    "id": "uni7",
+    "name": "GIKI",
+    "location": "Topi",
+    "percentage":90,
+    "latitude": 31.5005,
+  "longitude": 74.3195,
+    "images": ["/images/giki1.jpg", "/images/giki2.jpg", "/images/giki3.jpg"],
+    "fee": 390000,
+    "bachelorsCourses": ["Mechanical Eng.", "CS", "Electrical Eng."],
+    "scholarship": true,
+    "about": "Elite engineering institute.",
+    "enrollmentLink": "https://giki.edu.pk",
+    "hostels": [
+      {
+        "name": "Falcon Hostel",
+        "roomSharing": "2-person",
+        "price": 14000,
+        "distance": "on-campus",
+        "image": "/images/hostel7.jpg"
+      }
+    ],
+    "ratings": [
+      { "username": "Ali", "stars": 5, "comment": "Best engineering institute." },
+      { "username": "Mehwish", "stars": 5, "comment": "Very selective and elite." },
+      { "username": "Laiba", "stars": 4, "comment": "Challenging courses." },
+      { "username": "Zainab", "stars": 5, "comment": "Impressive infrastructure." },
+      { "username": "Waleed", "stars": 4, "comment": "Amazing research facilities." }
+    ]
+  },
+  {
+    "id": "uni8",
+    "name": "University of Peshawar",
+    "location": "Peshawar",
+    "percentage":40,
+    "latitude": 31.5005,
+  "longitude": 74.3195,
+    "images": ["/images/peshawar1.jpg", "/images/peshawar2.jpg", "/images/peshawar3.jpg"],
+    "fee": 90000,
+    "bachelorsCourses": ["BA", "BSc", "LLB"],
+    "scholarship": false,
+    "about": "Public sector university in KP.",
+    "enrollmentLink": "http://www.uop.edu.pk",
+    "hostels": [
+      {
+        "name": "Peshawar Hostel",
+        "roomSharing": "2-person",
+        "price": 6000,
+        "distance": "0.7 km",
+        "image": "/images/hostel8.jpg"
+      }
+    ],
+    "ratings": [
+      { "username": "Hassan", "stars": 3, "comment": "Decent public uni." },
+      { "username": "Ali", "stars": 4, "comment": "Affordable and historic." },
+      { "username": "Laiba", "stars": 4, "comment": "Great location." },
+      { "username": "Mehwish", "stars": 3, "comment": "Needs modernization." },
+      { "username": "Zainab", "stars": 4, "comment": "Cultural and rich history." }
+    ]
+  },
+  {
+    "id": "uni9",
+    "name": "Bahria University",
+    "location": "Islamabad",
+    "percentage":40,
+    "latitude": 31.5005,
+  "longitude": 74.3195,
+    "images": ["/images/bahria1.jpg", "/images/bahria2.jpg", "/images/bahria3.jpg"],
+    "fee": 155000,
+    "bachelorsCourses": ["BSCS", "BBA", "Psychology"],
+    "scholarship": true,
+    "about": "Naval-administered public university.",
+    "enrollmentLink": "https://bahria.edu.pk",
+    "hostels": [
+      {
+        "name": "Marine Hostel",
+        "roomSharing": "2-person",
+        "price": 9500,
+        "distance": "0.9 km",
+        "image": "/images/hostel9.jpg"
+      }
+    ],
+     "ratings": [
+      { "username": "Waleed", "stars": 4, "comment": "Well-organized university." },
+      { "username": "Zainab", "stars": 3, "comment": "Good for management sciences." },
+      { "username": "Hassan", "stars": 4, "comment": "Navy-run discipline." },
+      { "username": "Laiba", "stars": 4, "comment": "Comfortable hostels." },
+      { "username": "Ali", "stars": 5, "comment": "Nice blend of academics and activities." }
+    ]
+  },
+  {
+    "id": "uni10",
+    "name": "University of Balochistan",
+    "location": "Quetta",
+    "percentage":40,
+    "latitude": 31.5005,
+  "longitude": 74.3195,
+    "images": ["/images/quetta1.jpg", "/images/quetta2.jpg", "/images/quetta3.jpg"],
+    "fee": 85000,
+    "bachelorsCourses": ["BS Urdu", "BSc", "LLB"],
+    "scholarship": false,
+    "about": "Leading university in Balochistan.",
+    "enrollmentLink": "https://www.uob.edu.pk",
+    "hostels": [
+      {
+        "name": "Quetta Hostel",
+        "roomSharing": "2-person",
+        "price": 5500,
+        "distance": "1.1 km",
+        "image": "/images/hostel10.jpg"
+      }
+    ],
+    "ratings": [
+      { "username": "Aliha", "stars": 3, "comment": "Needs infrastructure upgrades." },
+      { "username": "Mehwish", "stars": 4, "comment": "Good teachers." },
+      { "username": "Waleed", "stars": 3, "comment": "Decent option in Quetta." },
+      { "username": "Zainab", "stars": 4, "comment": "Improved a lot recently." },
+      { "username": "Hassan", "stars": 4, "comment": "Affordable education." }
+    ]
+  }
+]

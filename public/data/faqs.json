@@ -1,0 +1,42 @@
+[
+  {
+    "question": "How does the quiz feature work?",
+    "answer": "The quiz consists of multiple-choice questions. The first 5 questions help determine your interests and preferences. Based on your answers, the next 5 are personalized."
+  },
+  {
+    "question": "Can I retake the quiz if I want different recommendations?",
+    "answer": "Yes, you can retake the quiz anytime to explore different university suggestions."
+  },
+  {
+    "question": "How can I find universities in my preferred area?",
+    "answer": "You can filter universities by location and preferences like budget or programs to see suitable options."
+  },
+  {
+    "question": "How does the app determine which universities are within my range?",
+    "answer": "Based on your quiz answers and filters like tuition and courses, we suggest matching universities."
+  },
+  {
+    "question": "What details can I view about a university?",
+    "answer": "You can see its name, programs, location, admission criteria, and a link to the official site."
+  },
+  {
+    "question": "How do I access a university's official website?",
+    "answer": "Click the 'Visit Website' button on the university's page to open their official site in a new tab."
+  },
+  {
+    "question": "Can I also find hostel options near the universities?",
+    "answer": "Yes, each university has a list of nearby hostels with pricing, facilities, and distance."
+  },
+  {
+    "question": "How are hostels displayed for each university?",
+    "answer": "Hostels are shown with full details under each university’s section for easy comparison."
+  },
+  {
+    "question": "Can I save or bookmark universities or hostels I like?",
+    "answer": "Yes, use the 'Bookmark' button to save any university or hostel for future access."
+  },
+  {
+    "question": "Is this platform only for students currently applying to universities?",
+    "answer": "No, it’s helpful for high school students, parents, and counselors too."
+  }
+]

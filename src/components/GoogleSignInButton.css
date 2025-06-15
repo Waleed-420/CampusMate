@@ -1,0 +1,18 @@
+
+.google-icon
+{
+  width: 60px ;
+  height: 60px;
+  cursor: pointer;
+  
+}
+
+.google-icon:hover,
+.google-icon:focus {
+  opacity: 0.85;
+  transform: scale(1.05);
+  outline: none;
+  cursor: pointer;
+}
+
+

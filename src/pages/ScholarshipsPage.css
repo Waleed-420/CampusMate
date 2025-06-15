@@ -1,0 +1,54 @@
+.scholarship-page {
+  max-width: 1000px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.scholarship-page h2 {
+  text-align: center;
+  margin-bottom: 60px;
+  color: #007bff;
+  margin-top: 60px;
+}
+
+.scholarship-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 50px;
+  margin-top: 20px;
+}
+
+.scholarship-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3); 
+  transition: 0.3s ease;
+}
+
+.scholarship-card:hover {
+  transform: translateY(-4px);
+}
+
+.scholarship-card h3 {
+  
+  color: #007bff;
+  margin: 30px 0px;
+}
+
+.scholarship-card button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.6); 
+  transition: 0.3s ease;
+}
+
+.scholarship-card button:hover {
+  background-color: rgba(0, 123, 255, 0.2); 
+}
