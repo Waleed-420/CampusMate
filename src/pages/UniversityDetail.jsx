@@ -46,7 +46,7 @@ export default function UniversityDetail() {
 
       <h3>Location</h3>
       <div style={{ height: "300px", width: "100%" }}>
-        {/* Google Maps Embed API with markers (Google Maps API required) */}
+        
         <iframe
           width="100%"
           height="300"

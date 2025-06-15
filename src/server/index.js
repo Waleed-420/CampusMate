@@ -367,7 +367,6 @@ app.get('/api/scholarships', (req, res) => {
   }
 });
 
-//hostel
 app.post('/api/hostels', authenticateJWT, upload.single('image'), async (req, res) => {
   try {
     const roomTypes = JSON.parse(req.body.roomTypes);
@@ -564,7 +563,6 @@ app.post('/api/hostels/:hostelId/applications/:index/decline', authenticateJWT, 
 
 
 
-//scholarships
 
 app.post('/api/scholarships/save', authenticateJWT, async (req, res) => {
   const { scholarship } = req.body;
@@ -617,7 +615,6 @@ app.post('/api/scholarships/remove', authenticateJWT, async (req, res) => {
   }
 });
 
-//contact
 app.post('/contact', async (req, res) => {
   const { username, email, message } = req.body;
 
