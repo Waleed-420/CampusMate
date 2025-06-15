@@ -15,12 +15,10 @@ const FilterBar = ({ selectedFee, setSelectedFee, selectedCity, setSelectedCity,
     <div className="city-filters">
   <h4>University Location</h4>
   <div className="city-options">
-    <div
-      className={`city-option ${selectedCity === '' ? 'selected' : ''}`}
-      onClick={() => setSelectedCity('All')}
-    >
-      All
-    </div>
+   <div className={`city-option ${selectedCity === '' || selectedCity === 'All' ? 'selected' : ''}`} onClick={() => setSelectedCity('All')}>
+  All
+</div>
+
     {cities.map(city => (
       <div
         key={city}
