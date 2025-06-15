@@ -95,8 +95,8 @@ const AdminPanel = () => {
           <select name="coverage" value={form.coverage} onChange={handleChange} required>
             <option value="">Select Coverage</option>
             <option value="Fee">Fee</option>
-            <option value="University + Hostel">University + Hostel</option>
-            <option value="University + Hostel + Stipend">University + Hostel + Stipend</option>
+            <option value="University + Hostel">Fee + Hostel</option>
+            <option value="University + Hostel + Stipend">Fee + Hostel + Stipend</option>
           </select>
 
           <label>Registration Link:</label>
