@@ -10,8 +10,10 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import connectDB from './db.js';
 import nodemailer from 'nodemailer';
 import fs from 'fs';
+import multer from 'multer';
 import path from 'path';
 const scholarshipsFile = path.resolve('./data/scholarships.json');
+import { fileURLToPath } from 'url';
 
 dotenv.config()
 const app = express()
@@ -50,8 +52,17 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String },
   googleId: { type: String, unique: true, sparse: true },
-  role: { type: String, enum: ['student', 'admin', 'hostelManager'], required: true }
+  role: { type: String, enum: ['student', 'admin', 'hostelManager'], required: true },
+
+  hasAppliedHostel: { type: Boolean, default: false },
+
+  appliedHostel: { 
+    hostelId: { type: mongoose.Schema.Types.ObjectId, ref: 'Hostel' }, 
+    roomType: { type: String }, 
+    status: { type: String, enum: ['pending', 'approved', 'declined'], default: 'pending' }
+  }
 });
+
 
 const User = mongoose.model('User', UserSchema)
 
@@ -81,6 +92,72 @@ const authenticateJWT = (req, res, next) => {
   });
 };
 
+const hostelSchema = new mongoose.Schema({
+  image: { type: String, required: true },
+  name: { type: String, required: true },
+  universityId: { type: String, required: true },
+  roomTypes: {
+    twoSeater: { type: Boolean, default: false },
+    threeSeater: { type: Boolean, default: false },
+    fullRoom: { type: Boolean, default: false }
+  },
+  prices: {
+    price2Seater: { type: Number },
+    price3Seater: { type: Number },
+    priceFullRoom: { type: Number }
+  },
+  ownerPhone: { type: String, required: true },
+
+  owner: {
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    username: String,
+    email: String
+  },
+
+  status: { type: String, enum: ['pending', 'approved', 'declined'], default: 'pending' },
+
+  applications: { 
+    type: [ 
+      {
+        applicant: {
+          userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+          username: String,
+          email: String
+        },
+        roomType: String,
+        status: { type: String, enum: ['pending', 'approved', 'declined'], default: 'pending' },
+        appliedAt: { type: Date, default: Date.now }
+      }
+    ],
+    default: []
+  }
+});
+
+
+
+const Hostel = mongoose.model('Hostel', hostelSchema);
+
+const applicationSchema = new mongoose.Schema({
+  studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  hostelId: { type: mongoose.Schema.Types.ObjectId, ref: 'Hostel', required: true },
+  roomType: { type: String, required: true },
+  status: { type: String, enum: ['pending', 'approved', 'declined'], default: 'pending' }
+}, { timestamps: true });
+
+const Application = mongoose.model('Application', applicationSchema);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage });
+
+app.use('/uploads', express.static(path.join(path.resolve(), 'uploads')));
 
 app.post('/signup', async (req, res) => {
   const { email, username, password, role } = req.body;
@@ -306,9 +383,195 @@ app.get('/api/scholarships', (req, res) => {
 });
 
 //hostel
+app.post('/api/hostels', authenticateJWT, upload.single('image'), async (req, res) => {
+  try {
+    const roomTypes = JSON.parse(req.body.roomTypes);
+    const prices = JSON.parse(req.body.prices);
+    const ownerPhone = req.body.ownerPhone;
+
+    const user = await User.findById(req.user.id); 
+
+    const newHostel = new Hostel({
+      image: req.file.filename,
+      name: req.body.name,
+      universityId: req.body.universityId,
+      roomTypes,
+      prices,
+      ownerPhone,
+      status: "pending",
+      owner: {
+        userId: user._id,
+        username: user.username,
+        email: user.email
+      }
+    });
+
+    await newHostel.save();
+    res.json({ message: 'Hostel submitted successfully' });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error saving hostel' });
+  }
+});
 
 
+app.get('/api/hostels/unapproved', async (req, res) => {
+  try {
+    const unapprovedHostels = await Hostel.find({ status: 'pending' });
+    res.json(unapprovedHostels);
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching unapproved hostels" });
+  }
+});
 
+app.post('/api/hostels/approve/:id', async (req, res) => {
+  try {
+    const hostel = await Hostel.findById(req.params.id);
+    if (!hostel) return res.status(404).json({ error: 'Hostel not found' });
+
+    hostel.status = 'approved';
+    await hostel.save();
+    res.json({ message: "Hostel approved successfully" });
+
+  } catch (err) {
+    res.status(500).json({ error: "Error approving hostel" });
+  }
+});
+
+app.post('/api/hostels/decline/:id', async (req, res) => {
+  try {
+    const hostel = await Hostel.findById(req.params.id);
+    if (!hostel) return res.status(404).json({ error: 'Hostel not found' });
+
+    hostel.status = 'declined';
+    await hostel.save();
+    res.json({ message: "Hostel declined successfully" });
+
+  } catch (err) {
+    res.status(500).json({ error: "Error declining hostel" });
+  }
+});
+
+app.get('/api/hostels/my-submissions', authenticateJWT, async (req, res) => {
+  try {
+    const userObjectId = new mongoose.Types.ObjectId(req.user.id);
+const hostels = await Hostel.find({ "owner.userId": req.user.id.toString() });
+    res.json(hostels);
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching hostels" });
+  }
+});
+
+// hostel application
+app.get('/api/hostels/approved', async (req, res) => {
+  const hostels = await Hostel.find({ status: 'approved' });
+  res.json(hostels);
+});
+
+app.post('/api/hostels/apply', authenticateJWT, async (req, res) => {
+  try {
+    const { hostelId, roomType } = req.body;
+
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    if (user.hasAppliedHostel) {
+      return res.status(400).json({ error: "You have already applied to a hostel." });
+    }
+
+    const hostel = await Hostel.findById(hostelId);
+    if (!hostel) return res.status(404).json({ error: "Hostel not found" });
+
+    hostel.applications.push({
+      applicant: {
+        userId: user._id,
+        username: user.username,
+        email: user.email
+      },
+      roomType: roomType,
+      status: 'pending'
+    });
+
+    await hostel.save();
+
+    // ✅ Update user application info
+    user.hasAppliedHostel = true;
+    user.appliedHostel = {
+      hostelId: hostel._id,
+      roomType: roomType,
+      status: 'pending'
+    }
+    await user.save();
+
+    res.json({ message: "Application submitted successfully" });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error applying for hostel" });
+  }
+});
+
+app.get('/api/hostels/:id/applications', authenticateJWT, async (req, res) => {
+  try {
+    const hostel = await Hostel.findById(req.params.id);
+    if (!hostel) {
+      return res.status(404).json({ error: 'Hostel not found' });
+    }
+
+    res.json(hostel.applications);
+  } catch (err) {
+    console.error('Error fetching applications:', err);
+    res.status(500).json({ error: 'Server error fetching applications' });
+  }
+});
+
+app.get('/api/hostels/:id', async (req, res) => {
+  try {
+    const hostel = await Hostel.findById(req.params.id);
+    if (!hostel) return res.status(404).json({ error: "Hostel not found" });
+    res.json(hostel);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error fetching hostel" });
+  }
+});
+
+app.post('/api/hostels/:hostelId/applications/:index/approve', authenticateJWT, async (req, res) => {
+  try {
+    const hostel = await Hostel.findById(req.params.hostelId);
+    if (!hostel) return res.status(404).json({ error: "Hostel not found" });
+
+    const index = parseInt(req.params.index);
+    if (!hostel.applications[index]) return res.status(404).json({ error: "Application not found" });
+
+    hostel.applications[index].status = 'approved';
+    await hostel.save();
+
+    res.json({ message: "Application approved successfully" });
+  } catch (err) {
+    console.error("Error approving:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.post('/api/hostels/:hostelId/applications/:index/decline', authenticateJWT, async (req, res) => {
+  try {
+    const hostel = await Hostel.findById(req.params.hostelId);
+    if (!hostel) return res.status(404).json({ error: "Hostel not found" });
+
+    const index = parseInt(req.params.index);
+    if (!hostel.applications[index]) return res.status(404).json({ error: "Application not found" });
+
+    hostel.applications[index].status = 'declined';
+    await hostel.save();
+
+    res.json({ message: "Application declined successfully" });
+  } catch (err) {
+    console.error("Error declining:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 
 app.listen(5000, () => console.log('Server running on port 5000'))
