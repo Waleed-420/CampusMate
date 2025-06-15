@@ -13,7 +13,9 @@ import fs from 'fs';
 import multer from 'multer';
 import path from 'path';
 const scholarshipsFile = path.resolve('./data/scholarships.json');
+const usersFile = path.resolve('./data/users.json');
 import { fileURLToPath } from 'url';
+
 
 dotenv.config()
 const app = express()
@@ -60,7 +62,18 @@ const UserSchema = new mongoose.Schema({
     hostelId: { type: mongoose.Schema.Types.ObjectId, ref: 'Hostel' }, 
     roomType: { type: String }, 
     status: { type: String, enum: ['pending', 'approved', 'declined'], default: 'pending' }
-  }
+  },
+
+  savedScholarships: [
+    {
+     id: { type: String, required: true },
+      name: { type: String },
+      type: { type: String },
+      coverage: { type: String },
+      registrationLink: { type: String },
+      validTill: { type: String },
+    }
+  ]
 });
 
 
@@ -73,6 +86,7 @@ const RatingSchema = new mongoose.Schema({
   stars: { type: Number, required: true, min: 1, max: 5 },
   comment: { type: String, maxlength: 200 },
   createdAt: { type: Date, default: Date.now }
+  
 })
 
 const Rating = mongoose.model('Rating', RatingSchema)
@@ -296,36 +310,7 @@ app.get('/me', authenticateJWT, async (req, res) => {
 })
 
 
-app.post('/contact', authenticateJWT, async (req, res) => {
-  const { message } = req.body;
-  if (!message) return res.status(400).json({ error: 'Message is required' });
 
-  try {
-    const user = await User.findById(req.user.id);
-    if (!user) return res.status(401).json({ error: 'User not found' });
-
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.MAIL_USER,        
-        pass: process.env.MAIL_PASS         
-      }
-    });
-
-    const mailOptions = {
-      from: user.email,
-      to: 'l1s21bsse0093@ucp.edu.pk', 
-      subject: 'Contact Form Submission',
-      text: `Message from ${user.username} (${user.email}):\n\n${message}`
-    };
-
-    await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: 'Email sent successfully' });
-  } catch (err) {
-    console.error('Email error:', err);
-    res.status(500).json({ error: 'Failed to send email' });
-  }
-});
 
 
 app.post('/api/scholarships', async (req, res) => {
@@ -463,7 +448,6 @@ const hostels = await Hostel.find({ "owner.userId": req.user.id.toString() });
   }
 });
 
-// hostel application
 app.get('/api/hostels/approved', async (req, res) => {
   const hostels = await Hostel.find({ status: 'approved' });
   res.json(hostels);
@@ -495,7 +479,6 @@ app.post('/api/hostels/apply', authenticateJWT, async (req, res) => {
 
     await hostel.save();
 
-    // ✅ Update user application info
     user.hasAppliedHostel = true;
     user.appliedHostel = {
       hostelId: hostel._id,
@@ -547,6 +530,12 @@ app.post('/api/hostels/:hostelId/applications/:index/approve', authenticateJWT, 
 
     hostel.applications[index].status = 'approved';
     await hostel.save();
+    const applicantId = hostel.applications[index].applicant.userId;
+await User.findByIdAndUpdate(applicantId, {
+  $set: {
+    'appliedHostel.status': 'approved'
+  }
+});
 
     res.json({ message: "Application approved successfully" });
   } catch (err) {
@@ -572,6 +561,102 @@ app.post('/api/hostels/:hostelId/applications/:index/decline', authenticateJWT, 
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+
+
+//scholarships
+
+app.post('/api/scholarships/save', authenticateJWT, async (req, res) => {
+  const { scholarship } = req.body;
+  const userId = req.user.id;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const alreadySaved = user.savedScholarships.some(s => s.id === scholarship.id);
+    if (alreadySaved) return res.status(400).json({ error: "Already saved" });
+
+    user.savedScholarships.push(scholarship);
+    await user.save();
+
+    res.json({ message: "Scholarship saved!" });
+  } catch (err) {
+    console.error("Error saving scholarship:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+app.get('/api/scholarships/saved', authenticateJWT, async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    res.json(user.savedScholarships || []);
+  } catch (err) {
+    console.error("Error fetching saved scholarships:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+app.post('/api/scholarships/remove', authenticateJWT, async (req, res) => {
+  const { id } = req.body;
+  const userId = req.user.id;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    user.savedScholarships = user.savedScholarships.filter(s => s.id !== id);
+    await user.save();
+
+    res.json({ message: "Scholarship removed" });
+  } catch (err) {
+    console.error("Error removing scholarship:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+//contact
+app.post('/contact', async (req, res) => {
+  const { username, email, message } = req.body;
+
+  if (!username || !email || !message) {
+    return res.status(400).json({ error: 'All fields are required.' });
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: email,
+      to: process.env.MAIL_USER,
+      subject: `New Contact Message from ${username}`,
+      html: `
+        <h3>Contact Form Submission</h3>
+        <p><strong>Name:</strong> ${username}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: 'Message sent successfully!' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to send email.' });
+  }
+});
+
+
+
 
 
 app.listen(5000, () => console.log('Server running on port 5000'))

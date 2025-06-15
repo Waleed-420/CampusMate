@@ -114,7 +114,6 @@
   margin-bottom: 10px;
 }
 
-/* General application section */
 .application-section {
   margin-top: 30px;
   padding: 20px;
@@ -123,14 +122,12 @@
   border-radius: 10px;
 }
 
-/* Application list */
 .application-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Each application card */
 .application-card {
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -140,18 +137,15 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Application content */
 .application-card p {
   margin: 8px 0;
   font-size: 16px;
 }
 
-/* Highlight pending status */
 .application-card p strong {
   color: #333;
 }
 
-/* Buttons container */
 .action-buttons {
   margin-top: 15px;
   display: flex;
@@ -159,9 +153,8 @@
   align: center
 }
 
-/* Approve button */
 .action-buttons button:first-child {
-  background-color: #28a745;
+  background-color: #007bff;
   border: none;
   color: white;
   padding: 10px 18px;
@@ -172,10 +165,9 @@
 }
 
 .action-buttons button:first-child:hover {
-  background-color: #218838;
+  background-color: #007bff;
 }
 
-/* Decline button */
 .action-buttons button:last-child {
   background-color: #dc3545;
   border: none;

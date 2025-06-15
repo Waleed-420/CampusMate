@@ -10,9 +10,7 @@ const BookHostelPage = () => {
   const [selectedUniversity, setSelectedUniversity] = useState("");
   const [selectedHostel, setSelectedHostel] = useState(null);
   const [selectedRoomType, setSelectedRoomType] = useState("");
-  const [alreadyApplied, setAlreadyApplied] = useState(false);
   const [user, setUser] = useState(null);
-  const [appliedHostelDetails, setAppliedHostelDetails] = useState(null);
 
   useEffect(() => {
     fetchUser();
@@ -29,23 +27,9 @@ const BookHostelPage = () => {
       const data = await res.json();
       if (res.ok) {
         setUser(data);
-        setAlreadyApplied(data.hasAppliedHostel);
-        if (data.hasAppliedHostel) {
-          fetchAppliedHostel(data.appliedHostel.hostelId);
-        }
       }
     } catch (err) {
       console.error("Error fetching user:", err);
-    }
-  };
-
-  const fetchAppliedHostel = async (hostelId) => {
-    try {
-      const res = await fetch(`http://localhost:5000/api/hostels/${hostelId}`);
-      const data = await res.json();
-      setAppliedHostelDetails(data);
-    } catch (err) {
-      console.error("Error fetching applied hostel:", err);
     }
   };
 
@@ -98,8 +82,6 @@ const BookHostelPage = () => {
       const data = await res.json();
       if (res.ok) {
         alert("Application sent successfully!");
-        setAlreadyApplied(true);
-        fetchUser(); // refetch user to update application info
       } else {
         alert(data.error);
       }
@@ -115,75 +97,58 @@ const BookHostelPage = () => {
       <div className="home-container">
         <h1>Book Hostel</h1>
 
-        {alreadyApplied ? (
-          appliedHostelDetails ? (
-            <div className="applied-hostel-card">
-              <h2>Hostel Application Status</h2>
-              <h3>{appliedHostelDetails.name}</h3>
-              <p><strong>Owner:</strong> {appliedHostelDetails.owner?.username} ({appliedHostelDetails.owner?.email})</p>
-              <p><strong>Owner Phone:</strong> {appliedHostelDetails.ownerPhone}</p>
-              <p><strong>Applied Room Type:</strong> {user.appliedHostel.roomType}</p>
-              <p><strong>Application Status:</strong> {user.appliedHostel.status}</p>
-            </div>
-          ) : (
-            <p>Loading application info...</p>
-          )
-        ) : (
+        <div className="university-select">
+          <label>Select University:</label>
+          <select value={selectedUniversity} onChange={handleUniversitySelect}>
+            <option value="">-- Select University --</option>
+            {universities.map((uni) => (
+              <option key={uni.id} value={uni.id}>{uni.name}</option>
+            ))}
+          </select>
+        </div>
+
+        {selectedUniversity && (
           <>
-            <div className="university-select">
-              <label>Select University:</label>
-              <select value={selectedUniversity} onChange={handleUniversitySelect}>
-                <option value="">-- Select University --</option>
-                {universities.map((uni) => (
-                  <option key={uni.id} value={uni.id}>{uni.name}</option>
-                ))}
-              </select>
+            <div className="hostel-grid">
+              {filteredHostels.length === 0 ? (
+                <p>No hostels available for this university.</p>
+              ) : (
+                filteredHostels.map((hostel) => (
+                  <div
+                    key={hostel._id}
+                    className={`hostel-card ${selectedHostel?._id === hostel._id ? "selected" : ""}`}
+                    onClick={() => {
+                      setSelectedHostel(hostel);
+                      setSelectedRoomType("");
+                    }}
+                  >
+                    <h3>{hostel.name}</h3>
+                    <p><strong>Owner:</strong> {hostel.owner?.username} ({hostel.owner?.email})</p>
+                    <div className="room-prices">
+                      <p><strong>Prices:</strong></p>
+                      <ul>
+                        {hostel.roomTypes.twoSeater && <li>2-Seater: ${hostel.prices.price2Seater}</li>}
+                        {hostel.roomTypes.threeSeater && <li>3-Seater: ${hostel.prices.price3Seater}</li>}
+                        {hostel.roomTypes.fullRoom && <li>Full Room: ${hostel.prices.priceFullRoom}</li>}
+                      </ul>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
 
-            {selectedUniversity && (
-              <>
-                <div className="hostel-grid">
-                  {filteredHostels.length === 0 ? (
-                    <p>No hostels available for this university.</p>
-                  ) : (
-                    filteredHostels.map((hostel) => (
-                      <div
-                        key={hostel._id}
-                        className={`hostel-card ${selectedHostel?._id === hostel._id ? "selected" : ""}`}
-                        onClick={() => {
-                          setSelectedHostel(hostel);
-                          setSelectedRoomType("");
-                        }}
-                      >
-                        <h3>{hostel.name}</h3>
-                        <p><strong>Owner:</strong> {hostel.owner?.username} ({hostel.owner?.email})</p>
-                        <div className="room-prices">
-                          <p><strong>Prices:</strong></p>
-                          <ul>
-                            {hostel.roomTypes.twoSeater && <li>2-Seater: ${hostel.prices.price2Seater}</li>}
-                            {hostel.roomTypes.threeSeater && <li>3-Seater: ${hostel.prices.price3Seater}</li>}
-                            {hostel.roomTypes.fullRoom && <li>Full Room: ${hostel.prices.priceFullRoom}</li>}
-                          </ul>
-                        </div>
-                      </div>
-                    ))
-                  )}
-                </div>
-
-                {selectedHostel && (
-                  <div className="booking-form">
-                    <h2>Apply for {selectedHostel.name}</h2>
-                    <label>Select Room Type:</label>
-                    <select value={selectedRoomType} onChange={(e) => setSelectedRoomType(e.target.value)}>
-                      <option value="">-- Select Room Type --</option>
-                      {selectedHostel.roomTypes.twoSeater && <option value="twoSeater">2-Seater</option>}
-                      {selectedHostel.roomTypes.threeSeater && <option value="threeSeater">3-Seater</option>}
-                      {selectedHostel.roomTypes.fullRoom && <option value="fullRoom">Full Room</option>}
-                    </select>
-                    <button onClick={handleApply}>Apply</button>
-                  </div>
-                )}
-              </>
+            {selectedHostel && (
+              <div className="booking-form">
+                <h2>Apply for {selectedHostel.name}</h2>
+                <label>Select Room Type:</label>
+                <select value={selectedRoomType} onChange={(e) => setSelectedRoomType(e.target.value)}>
+                  <option value="">-- Select Room Type --</option>
+                  {selectedHostel.roomTypes.twoSeater && <option value="twoSeater">2-Seater</option>}
+                  {selectedHostel.roomTypes.threeSeater && <option value="threeSeater">3-Seater</option>}
+                  {selectedHostel.roomTypes.fullRoom && <option value="fullRoom">Full Room</option>}
+                </select>
+                <button onClick={handleApply}>Apply</button>
+              </div>
             )}
           </>
         )}

@@ -1,24 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { CheckCircle, XCircle, X } from "lucide-react";
 import "./AdminPanel.css";
 
 const AdminPanel = () => {
-  const [form, setForm] = useState({
-    name: "",
-    type: "",
-    coverage: "",
-    registrationLink: "",
-    validTill: ""
-  });
-
+  const [form, setForm] = useState({ name: "", type: "", coverage: "", registrationLink: "", validTill: "" });
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const [activeTab, setActiveTab] = useState("scholarship");
   const [unapprovedHostels, setUnapprovedHostels] = useState([]);
+  const [chatMessages, setChatMessages] = useState([]);
+  const [chatInput, setChatInput] = useState("");
+  const audioRef = useRef(null);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,79 +26,79 @@ const AdminPanel = () => {
     if (res.ok) {
       setMessage("Scholarship added successfully!");
       setIsError(false);
-      setForm({
-        name: "",
-        type: "",
-        coverage: "",
-        registrationLink: "",
-        validTill: ""
-      });
+      setForm({ name: "", type: "", coverage: "", registrationLink: "", validTill: "" });
     } else {
       setMessage(data.error || "Error adding scholarship");
       setIsError(true);
     }
   };
 
-  useEffect(() => {
-    if (activeTab === "hostel") {
-      fetchUnapprovedHostels();
-    }
-  }, [activeTab]);
-
   const fetchUnapprovedHostels = async () => {
-  const response = await fetch("http://localhost:5000/api/hostels/unapproved");
-  const data = await response.json();
-  setUnapprovedHostels(data);
-};
-
+    const response = await fetch("http://localhost:5000/api/hostels/unapproved");
+    const data = await response.json();
+    setUnapprovedHostels(data);
+  };
 
   const approveHostel = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:5000/api/hostels/approve/${id}`, {
-        method: "POST"
-      });
-      const data = await response.json();
-
-      if (response.ok) {
-        alert(data.message);
-        fetchUnapprovedHostels();
-      } else {
-        alert("Error approving hostel: " + data.error);
-      }
-    } catch (err) {
-      console.error("Error approving hostel:", err);
+    const response = await fetch(`http://localhost:5000/api/hostels/approve/${id}`, { method: "POST" });
+    const data = await response.json();
+    if (response.ok) {
+      alert(data.message);
+      fetchUnapprovedHostels();
+    } else {
+      alert("Error approving hostel: " + data.error);
     }
   };
 
   const declineHostel = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:5000/api/hostels/decline/${id}`, {
-        method: "POST"
-      });
-      const data = await response.json();
-
-      if (response.ok) {
-        alert(data.message);
-        fetchUnapprovedHostels();
-      } else {
-        alert("Error declining hostel: " + data.error);
-      }
-    } catch (err) {
-      console.error("Error declining hostel:", err);
+    const response = await fetch(`http://localhost:5000/api/hostels/decline/${id}`, { method: "POST" });
+    const data = await response.json();
+    if (response.ok) {
+      alert(data.message);
+      fetchUnapprovedHostels();
+    } else {
+      alert("Error declining hostel: " + data.error);
     }
   };
+
+  const fetchMessages = async () => {
+    const res = await fetch("http://localhost:5000/api/chat");
+    const data = await res.json();
+    const newMsg = data.find(msg => msg.sender === "user" && !msg.read);
+    if (newMsg && audioRef.current) {
+      audioRef.current.play();
+    }
+    setChatMessages(data);
+    await fetch("http://localhost:5000/api/chat/mark-read", { method: "POST" });
+  };
+
+  const sendMessage = async () => {
+    if (!chatInput.trim()) return;
+    await fetch("http://localhost:5000/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sender: "admin", message: chatInput }),
+    });
+    setChatInput("");
+    fetchMessages();
+  };
+
+  useEffect(() => {
+    if (activeTab === "hostel") fetchUnapprovedHostels();
+    if (activeTab === "chat") fetchMessages();
+    const interval = setInterval(() => {
+      if (activeTab === "chat") fetchMessages();
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [activeTab]);
 
   return (
     <div className="admin-panel">
       <h1>Admin Dashboard</h1>
-
       <div className="admin-tabs">
-        <button className={activeTab === "scholarship" ? "active" : ""} onClick={() => setActiveTab("scholarship")}>
-          Add Scholarship
-        </button>
-        <button className={activeTab === "hostel" ? "active" : ""} onClick={() => setActiveTab("hostel")}>
-          Approve Hostel
-        </button>
+        <button className={activeTab === "scholarship" ? "active" : ""} onClick={() => setActiveTab("scholarship")}>Add Scholarship</button>
+        <button className={activeTab === "hostel" ? "active" : ""} onClick={() => setActiveTab("hostel")}>Approve Hostel</button>
+        <button className={activeTab === "chat" ? "active" : ""} onClick={() => setActiveTab("chat")}>User Chats</button>
       </div>
 
       {activeTab === "scholarship" && (
@@ -112,17 +106,12 @@ const AdminPanel = () => {
           {message && (
             <div className={`custom-alert ${isError ? "error" : "success"}`}>
               <div className="alert-content">
-                <span className="alert-icon">
-                  {isError ? <XCircle size={20} /> : <CheckCircle size={20} />}
-                </span>
+                <span className="alert-icon">{isError ? <XCircle size={20} /> : <CheckCircle size={20} />}</span>
                 <span className="alert-text">{message}</span>
               </div>
-              <span className="alert-close" onClick={() => setMessage("")}>
-                <X size={18} />
-              </span>
+              <span className="alert-close" onClick={() => setMessage("")}><X size={18} /></span>
             </div>
           )}
-
           <label>Scholarship Name:</label>
           <input type="text" name="name" value={form.name} onChange={handleChange} required />
 
@@ -164,12 +153,9 @@ const AdminPanel = () => {
                   <h3>{hostel.name}</h3>
                   <p><strong>University ID:</strong> {hostel.universityId}</p>
                   <p><strong>Room Types:</strong> 
-                    {Object.entries(hostel.roomTypes)
-                      .filter(([_, value]) => value)
-                      .map(([type]) => ` ${type} `).join(", ")}
+                    {Object.entries(hostel.roomTypes).filter(([_, val]) => val).map(([type]) => ` ${type} `).join(", ")}
                   </p>
                   <p><strong>Owner's Name:</strong> {hostel.owner?.username}</p>
-                 
                   <div className="btn-actions">
                     <button className="approve-btn" onClick={() => approveHostel(hostel._id)}>Approve</button>
                     <button className="decline-btn" onClick={() => declineHostel(hostel._id)}>Decline</button>
@@ -180,6 +166,9 @@ const AdminPanel = () => {
           )}
         </div>
       )}
+
+      
+      <audio ref={audioRef} src="/notification.mp3" preload="auto" />
     </div>
   );
 };

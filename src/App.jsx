@@ -20,6 +20,7 @@ import UniversitySearch from "./pages/UniversitySearch";
 import UniversityDetail from "./pages/UniversityDetail";
 import HostelManagerPage from "./pages/HostelManagerPage";
 import BookHostelPage from "./pages/BookHostelPage";
+import DashboardPage from "./pages/DashboardPage";
 
 function AppWrapper() {
   const location = useLocation();
@@ -41,7 +42,7 @@ function AppWrapper() {
 
   return (
     <>
-      {location.pathname !== "/admin" && <GlobalScholarshipAlert />} 
+      {location.pathname !== "/admin" &&"/signin"&&"/signup" &&"/hostelmanager" && <GlobalScholarshipAlert />} 
 
       <Routes>
         <Route path="/" element={token ? <Navigate to="/home" /> : <Navigate to="/signin" />} />
@@ -59,6 +60,7 @@ function AppWrapper() {
         <Route path="/hostelmanager" element={<HostelManagerPage />} />
         <Route path="/scholarships" element={<ScholarshipsPage />} /> 
         <Route path='/hostels' element={<BookHostelPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>
     </>
   );

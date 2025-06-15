@@ -64,8 +64,8 @@
     "name": "COMSATS University",
     "location": "Islamabad",
     "percentage": 60,
-    "latitude": 31.5005,
-    "longitude": 74.3195,
+    "latitude": 33.6844,
+    "longitude": 73.0479,
     "images": [
       "/images/comsats1.jpg",
       "/images/comsats2.jpg",
@@ -84,6 +84,8 @@
       {
         "name": "Capital Residency",
         "roomSharing": "2-person",
+        "latitude": 33.6851,
+        "longitude": 73.0428,
         "price": 10000,
         "distance": "1 km",
         "image": "/images/hostel2.jpg"
@@ -122,8 +124,8 @@
     "name": "Lahore University of Management Sciences (LUMS)",
     "location": "Lahore",
     "percentage": 40,
-    "latitude": 31.5005,
-    "longitude": 74.3195,
+    "latitude": 31.4700,
+    "longitude": 74.4080,
     "images": [
       "/images/lums1.jpg",
       "/images/lums2.jpg",
@@ -144,6 +146,8 @@
         "roomSharing": "2-person",
         "price": 15000,
         "distance": "on-campus",
+        "latitude": 31.4700,
+    "longitude": 74.4080,
         "image": "/images/hostel3.jpg"
       }
     ],
@@ -180,8 +184,8 @@
     "name": "NED University",
     "location": "Karachi",
     "percentage": 70,
-    "latitude": 31.5005,
-    "longitude": 74.3195,
+    "latitude": 24.9263,
+    "longitude": 67.1126,
     "images": [
       "/images/ned1.jpg",
       "/images/ned2.jpg",
@@ -202,6 +206,8 @@
         "roomSharing": "2-person",
         "price": 9000,
         "distance": "1.5 km",
+        "latitude": 24.9272,
+        "longitude": 67.1089,
         "image": "/images/hostel4.jpg"
       }
     ],
@@ -238,8 +244,8 @@
     "name": "FAST-NUCES",
     "location": "Karachi",
     "percentage": 80,
-    "latitude": 31.5005,
-    "longitude": 74.3195,
+    "latitude": 24.8937,
+    "longitude": 67.0731,
     "images": [
       "/images/fast1.jpg",
       "/images/fast2.jpg",
@@ -259,6 +265,8 @@
         "roomSharing": "2-person",
         "price": 11000,
         "distance": "1 km",
+        "latitude": 24.8946,
+        "longitude": 67.0705,
         "image": "/images/hostel5.jpg"
       }
     ],
@@ -295,8 +303,8 @@
     "name": "University of Faisalabad",
     "location": "Faisalabad",
     "percentage": 40,
-    "latitude": 31.5005,
-    "longitude": 74.3195,
+    "latitude": 31.4504,
+    "longitude": 73.1350,
     "images": [
       "/images/faisalabad1.jpg",
       "/images/faisalabad2.jpg",
@@ -317,6 +325,8 @@
         "roomSharing": "2-person",
         "price": 7000,
         "distance": "0.8 km",
+        "latitude": 31.451,
+        "longitude": 73.132,
         "image": "/images/hostel6.jpg"
       }
     ],
@@ -353,8 +363,8 @@
     "name": "GIKI",
     "location": "Topi",
     "percentage": 90,
-    "latitude": 31.5005,
-    "longitude": 74.3195,
+    "latitude": 34.0731,
+    "longitude": 72.6466,
     "images": [
       "/images/giki1.jpg",
       "/images/giki2.jpg",
@@ -375,6 +385,8 @@
         "roomSharing": "2-person",
         "price": 14000,
         "distance": "on-campus",
+        "latitude": 34.0737,
+        "longitude": 72.6421,
         "image": "/images/hostel7.jpg"
       }
     ],
@@ -411,8 +423,8 @@
     "name": "University of Peshawar",
     "location": "Peshawar",
     "percentage": 40,
-    "latitude": 31.5005,
-    "longitude": 74.3195,
+    "latitude": 34.0150,
+    "longitude": 71.5249,
     "images": [
       "/images/peshawar1.jpg",
       "/images/peshawar2.jpg",
@@ -433,6 +445,8 @@
         "roomSharing": "2-person",
         "price": 6000,
         "distance": "0.7 km",
+        "latitude": 34.0158,
+        "longitude": 71.5204,
         "image": "/images/hostel8.jpg"
       }
     ],
@@ -469,8 +483,8 @@
     "name": "Bahria University",
     "location": "Islamabad",
     "percentage": 40,
-    "latitude": 31.5005,
-    "longitude": 74.3195,
+    "latitude": 33.7090,
+    "longitude": 73.0551,
     "images": [
       "/images/bahria1.jpg",
       "/images/bahria2.jpg",
@@ -491,6 +505,8 @@
         "roomSharing": "2-person",
         "price": 9500,
         "distance": "0.9 km",
+        "latitude": 33.7097,
+        "longitude": 73.0512,
         "image": "/images/hostel9.jpg"
       },
       {
@@ -498,6 +514,8 @@
         "roomSharing": "3-person",
         "price": 1600,
         "distance": "unknown",
+        "latitude": 33.7097,
+        "longitude": 73.0522,
         "image": "/uploads/1749996254710-27850ca71361b96c0b79e6272a54bfae.jpg"
       },
       {
@@ -541,8 +559,8 @@
     "name": "University of Balochistan",
     "location": "Quetta",
     "percentage": 40,
-    "latitude": 31.5005,
-    "longitude": 74.3195,
+    "latitude": 30.1798,
+    "longitude": 66.9750,
     "images": [
       "/images/quetta1.jpg",
       "/images/quetta2.jpg",
@@ -563,6 +581,8 @@
         "roomSharing": "2-person",
         "price": 5500,
         "distance": "1.1 km",
+        "latitude": 30.1803,
+        "longitude": 66.9707,
         "image": "/images/hostel10.jpg"
       }
     ],

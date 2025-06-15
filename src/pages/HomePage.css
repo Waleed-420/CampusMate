@@ -1,6 +1,16 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
 .home-container {
+  max-width: 100% !important  ;
+  margin: 0 0 !important  ;
+  padding: 0px !important;
   text-align: center;
 }
+
 
 .hero-section {
   display: flex;
@@ -9,7 +19,8 @@
   align-items: center;
   background-color: #DBEAFE;
   padding: 5rem 2rem;
-  max-width: auto;
+  width: 100%; 
+  overflow-x: hidden;
 }
 
 .hero-section h1 {
@@ -47,6 +58,8 @@ padding: 0.75rem 1.5rem;
   max-width: 1200px;   
   margin-left: auto;  
   margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .features-section h2 {

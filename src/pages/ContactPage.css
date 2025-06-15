@@ -71,3 +71,71 @@
   margin-bottom: 15px;
   font-weight: bold;
 }
+.contact-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.contact-tabs button.active {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.chat-box {
+  background: #f8f8f8;
+  padding: 1rem;
+  border-radius: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.messages {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 0.5rem;
+  margin: 0.3rem 0;
+  border-radius: 5px;
+}
+
+.admin-msg {
+  background-color: #e1f5fe;
+  text-align: left;
+}
+
+.user-msg {
+  background-color: #d0f0c0;
+  text-align: right;
+}
+
+.message.unread {
+  font-weight: bold;
+}
+
+.status {
+  font-size: 0.7rem;
+  color: gray;
+  text-align: right;
+}
+
+.chat-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.chat-input button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
