@@ -30,8 +30,7 @@ export default function SignIn({ setToken }) {
   return (
     <div className="page-layout">
       <div className="left-pane">
-        <h1>Welcome Back</h1>
-        <p>Welcome to Campus Mate, your trusted companion in education</p>
+        <p><strong style={{fontSize:'30px'}}>Welcome Back to Campus Mate, </strong>  your trusted companion in education</p>
         <div className="auth-buttons">
           <SocialButtons/>
           <GoogleSignInButton/>

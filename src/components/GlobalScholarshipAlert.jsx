@@ -29,6 +29,7 @@ const GlobalScholarshipAlert = () => {
   const coverage = alertData.coverage?.toLowerCase() || "";
 
   if (coverage.includes("university")) iconsToShow.push(<School key="school" className="alert-icon" size={28} />);
+  if (coverage.includes("fee")) iconsToShow.push(<School key="school" className="alert-icon" size={28} />);
   if (coverage.includes("hostel")) iconsToShow.push(<Home key="hostel" className="alert-icon" size={28} />);
   if (coverage.includes("stipend")) iconsToShow.push(<DollarSign key="stipend" className="alert-icon" size={28} />);
 

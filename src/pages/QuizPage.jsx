@@ -180,7 +180,7 @@ const QuizPage = () => {
 
         {questions.length > 0 && !showRecommendation && !loading && (
           <div>
-            <h1>Career Quiz for Pakistani Students</h1>
+            <h1 className='main-head'>Career Quiz for Pakistani Students</h1>
             <h2>Step {step}: Answer these questions</h2>
             <div className="quiz-container">
               {questions.map((q, qIndex) => (

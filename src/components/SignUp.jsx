@@ -21,8 +21,8 @@ export default function SignUp() {
   return (
     <div className="page-layout">
       <div className="left-pane">
-        <h1>WELCOME AT CAMPUSMATE</h1>
-        <p>Providing universities information to all students across Pakistan.</p>
+        
+        <p><strong style={{fontSize:'30px'}}>WELCOME AT CAMPUSMATE</strong> Providing universities information to all students across Pakistan.</p>
         <div className="auth-buttons">
            <SocialButtons />
            <GoogleSignInButton/>

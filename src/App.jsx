@@ -18,6 +18,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import UniversitySearch from "./pages/UniversitySearch";
 import UniversityDetail from "./pages/UniversityDetail";
+import AlertsPage from "./pages/AlertsPage";
 
 function AppWrapper() {
   const location = useLocation();
@@ -39,7 +40,7 @@ function AppWrapper() {
 
   return (
     <>
-      {location.pathname !== "/admin" && <GlobalScholarshipAlert />} 
+      {location.pathname !== "/admin" &&location.pathname !== "/signin" && location.pathname !== "/signup" &&<GlobalScholarshipAlert />} 
 
       <Routes>
         <Route path="/" element={token ? <Navigate to="/home" /> : <Navigate to="/signin" />} />
@@ -55,6 +56,7 @@ function AppWrapper() {
         <Route path="/university/:id" element={<UniversityPage  />} />
         <Route path="/admin" element={<AdminPanel />} /> 
         <Route path="/scholarships" element={<ScholarshipsPage />} /> 
+        <Route path="/alerts" element={<AlertsPage />} /> 
       </Routes>
     </>
   );

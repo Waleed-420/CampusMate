@@ -20,7 +20,7 @@
   height: 100vh;
   width: 100%;
   
-  background-color: #e61212;
+  background-color: #165dff;
 }
 .left-pane {
   flex: 1;
@@ -29,6 +29,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: left;
   gap: 1rem;
 }
 .right-pane {

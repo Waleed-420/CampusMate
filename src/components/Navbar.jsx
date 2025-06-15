@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
+import logo from '../../public/images/logo.jpeg'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,7 +9,9 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="logo">CampusMate</div>
+      <div className="logo">
+        <img src={logo} alt="Logo" />
+      </div>
 
       <div className={`nav-links ${isOpen ? 'open' : ''}`}>
         <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>

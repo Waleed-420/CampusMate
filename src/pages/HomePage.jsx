@@ -26,12 +26,12 @@ const HomePage = () => {
             <h3>university Finder</h3>
             <p>Enter your academic preferences and budget, and find universities matching your dreams.</p>
           </Link>
-          <Link to="/alerts" className="feature-card">
-            <h3>scholarship Alerts</h3>
+          <Link to="/scholarships" className="feature-card">
+            <h3>scholarships</h3>
             <p>Get real-time alerts for scholarships to fund your studies.</p>
           </Link>
           <Link to="/scholarships" className="feature-card">
-            <h3>scholarship Booking</h3>
+            <h3>Hostel Booking</h3>
             <p>Find and book hostels near your university directly through CampusMate.</p>
           </Link>
           <Link to="/compare" className="feature-card">
