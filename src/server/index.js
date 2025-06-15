@@ -10,8 +10,10 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import connectDB from './db.js';
 import nodemailer from 'nodemailer';
 import fs from 'fs';
+import multer from 'multer';
 import path from 'path';
 const scholarshipsFile = path.resolve('./data/scholarships.json');
+import { fileURLToPath } from 'url';
 
 dotenv.config()
 const app = express()
@@ -81,6 +83,38 @@ const authenticateJWT = (req, res, next) => {
   });
 };
 
+const hostelSchema = new mongoose.Schema({
+  image: { type: String, required: true },
+  name: { type: String, required: true },
+  universityId: { type: String, required: true },
+  roomTypes: {
+    twoSeater: { type: Boolean, default: false },
+    threeSeater: { type: Boolean, default: false },
+    fullRoom: { type: Boolean, default: false }
+  },
+  prices: {
+    price2Seater: { type: Number },
+    price3Seater: { type: Number },
+    priceFullRoom: { type: Number }
+  },
+  approved: { type: Boolean, default: false }
+});
+
+const Hostel = mongoose.model('Hostel', hostelSchema);
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage });
+
+app.use('/uploads', express.static(path.join(path.resolve(), 'uploads')));
 
 app.post('/signup', async (req, res) => {
   const { email, username, password, role } = req.body;
@@ -306,9 +340,109 @@ app.get('/api/scholarships', (req, res) => {
 });
 
 //hostel
+app.post('/api/hostels', upload.single('image'), async (req, res) => {
+  try {
+    // Parse JSON fields from FormData payload
+    const roomTypes = JSON.parse(req.body.roomTypes);
+    const prices = JSON.parse(req.body.prices);
+
+    const newHostel = new Hostel({
+      image: req.file.filename,
+      name: req.body.name,
+      universityId: req.body.universityId,
+      roomTypes,
+      prices,
+      approved: false
+    });
+
+    await newHostel.save();
+    res.json({ message: 'Hostel submitted successfully' });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error saving hostel' });
+  }
+});
+
+app.get('/api/hostels/unapproved', async (req, res) => {
+  try {
+    const unapprovedHostels = await Hostel.find({ approved: false });
+    res.json(unapprovedHostels);
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching unapproved hostels" });
+  }
+});
 
 
+app.post('/api/hostels/approve/:id', async (req, res) => {
+  try {
+    const hostel = await Hostel.findById(req.params.id);
+    if (!hostel) return res.status(404).json({ error: 'Hostel not found' });
 
+    // ✅ Corrected path to universities.json outside server directory
+    const filePath = path.join(__dirname, '..', 'data', 'universities.json');
 
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ error: "Universities JSON file not found" });
+    }
+
+    const universitiesData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+    const university = universitiesData.find(u => u.id === hostel.universityId);
+    if (!university) return res.status(404).json({ error: 'University not found' });
+
+    const generatedHostels = [];
+
+    if (hostel.roomTypes.twoSeater) {
+      generatedHostels.push({
+        name: hostel.name,
+        roomSharing: "2-person",
+        price: hostel.prices.price2Seater,
+        distance: "unknown",
+        image: `/uploads/${hostel.image}`
+      });
+    }
+
+    if (hostel.roomTypes.threeSeater) {
+      generatedHostels.push({
+        name: hostel.name,
+        roomSharing: "3-person",
+        price: hostel.prices.price3Seater,
+        distance: "unknown",
+        image: `/uploads/${hostel.image}`
+      });
+    }
+
+    if (hostel.roomTypes.fullRoom) {
+      generatedHostels.push({
+        name: hostel.name,
+        roomSharing: "Full Room",
+        price: hostel.prices.priceFullRoom,
+        distance: "unknown",
+        image: `/uploads/${hostel.image}`
+      });
+    }
+
+    if (!Array.isArray(university.hostels)) {
+      university.hostels = [];
+    }
+    university.hostels.push(...generatedHostels);
+
+    fs.writeFileSync(filePath, JSON.stringify(universitiesData, null, 2));
+
+    hostel.approved = true;
+    await hostel.save();
+
+    res.json({ message: "Hostel approved and added to universities JSON" });
+
+  } catch (err) {
+  console.error("Full stack trace:", err);
+  res.status(500).json({ 
+    error: "Error approving hostel", 
+    stack: err.stack, 
+    message: err.message 
+  });
+}
+});
 
 app.listen(5000, () => console.log('Server running on port 5000'))
