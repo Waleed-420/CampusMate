@@ -19,6 +19,7 @@ import "slick-carousel/slick/slick-theme.css";
 import UniversitySearch from "./pages/UniversitySearch";
 import UniversityDetail from "./pages/UniversityDetail";
 import HostelManagerPage from "./pages/HostelManagerPage";
+import BookHostelPage from "./pages/BookHostelPage";
 
 function AppWrapper() {
   const location = useLocation();
@@ -57,6 +58,7 @@ function AppWrapper() {
         <Route path="/admin" element={<AdminPanel />} /> 
         <Route path="/hostelmanager" element={<HostelManagerPage />} />
         <Route path="/scholarships" element={<ScholarshipsPage />} /> 
+        <Route path='/hostels' element={<BookHostelPage />} />
       </Routes>
     </>
   );

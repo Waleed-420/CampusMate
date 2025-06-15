@@ -171,3 +171,50 @@ h1 {
   background-color: #218838;
 }
 
+.hostel-approval-list {
+  margin-top: 20px;
+}
+
+.hostel-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: #fafafa;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.hostel-card h4 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.hostel-card ul {
+  padding-left: 20px;
+  margin: 5px 0 10px;
+}
+
+.btn-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.approve-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.decline-btn {
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+

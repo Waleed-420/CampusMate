@@ -56,3 +56,137 @@
   outline: none;
   box-shadow: 0 0 0 1px #2b2bff;
 }
+
+
+.manager-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.manager-tabs button {
+  padding: 10px 20px;
+  border: none;
+  background: #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.manager-tabs .active {
+  background: #007bff;
+  color: white;
+}
+
+.hostel-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.hostel-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.application-section {
+  margin-top: 20px;
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.application-list {
+  list-style: none;
+  padding: 0;
+}
+
+.application-card {
+  background: white;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+/* General application section */
+.application-section {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+}
+
+/* Application list */
+.application-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Each application card */
+.application-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Application content */
+.application-card p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+/* Highlight pending status */
+.application-card p strong {
+  color: #333;
+}
+
+/* Buttons container */
+.action-buttons {
+  margin-top: 15px;
+  display: flex;
+  gap: 15px;
+  align: center
+}
+
+/* Approve button */
+.action-buttons button:first-child {
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-buttons button:first-child:hover {
+  background-color: #218838;
+}
+
+/* Decline button */
+.action-buttons button:last-child {
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-buttons button:last-child:hover {
+  background-color: #c82333;
+}

@@ -14,8 +14,6 @@ const AdminPanel = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const [activeTab, setActiveTab] = useState("scholarship");
-
-  // NEW STATE for unapproved hostels
   const [unapprovedHostels, setUnapprovedHostels] = useState([]);
 
   const handleChange = (e) => {
@@ -47,7 +45,6 @@ const AdminPanel = () => {
     }
   };
 
-  // Fetch unapproved hostels when tab changes
   useEffect(() => {
     if (activeTab === "hostel") {
       fetchUnapprovedHostels();
@@ -55,12 +52,45 @@ const AdminPanel = () => {
   }, [activeTab]);
 
   const fetchUnapprovedHostels = async () => {
+  const response = await fetch("http://localhost:5000/api/hostels/unapproved");
+  const data = await response.json();
+  setUnapprovedHostels(data);
+};
+
+
+  const approveHostel = async (id) => {
     try {
-      const response = await fetch("http://localhost:5000/api/hostels/unapproved");
+      const response = await fetch(`http://localhost:5000/api/hostels/approve/${id}`, {
+        method: "POST"
+      });
       const data = await response.json();
-      setUnapprovedHostels(data);
+
+      if (response.ok) {
+        alert(data.message);
+        fetchUnapprovedHostels();
+      } else {
+        alert("Error approving hostel: " + data.error);
+      }
     } catch (err) {
-      console.error("Error fetching hostels:", err);
+      console.error("Error approving hostel:", err);
+    }
+  };
+
+  const declineHostel = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/hostels/decline/${id}`, {
+        method: "POST"
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(data.message);
+        fetchUnapprovedHostels();
+      } else {
+        alert("Error declining hostel: " + data.error);
+      }
+    } catch (err) {
+      console.error("Error declining hostel:", err);
     }
   };
 
@@ -138,7 +168,12 @@ const AdminPanel = () => {
                       .filter(([_, value]) => value)
                       .map(([type]) => ` ${type} `).join(", ")}
                   </p>
-                  <button onClick={() => approveHostel(hostel._id)}>Approve</button>
+                  <p><strong>Owner's Name:</strong> {hostel.owner?.username}</p>
+                 
+                  <div className="btn-actions">
+                    <button className="approve-btn" onClick={() => approveHostel(hostel._id)}>Approve</button>
+                    <button className="decline-btn" onClick={() => declineHostel(hostel._id)}>Decline</button>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -147,26 +182,6 @@ const AdminPanel = () => {
       )}
     </div>
   );
-
-  // Approval handler
-  async function approveHostel(id) {
-    try {
-      const response = await fetch(`http://localhost:5000/api/hostels/approve/${id}`, {
-        method: "POST"
-      });
-      const data = await response.json();
-
-      if (response.ok) {
-        alert(data.message);
-        // Refresh list
-        fetchUnapprovedHostels();
-      } else {
-        alert("Error approving hostel: " + data.error);
-      }
-    } catch (err) {
-      console.error("Error approving hostel:", err);
-    }
-  }
 };
 
 export default AdminPanel;

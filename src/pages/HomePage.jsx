@@ -30,7 +30,7 @@ const HomePage = () => {
             <h3>scholarships</h3>
             <p>Get real-time alerts for scholarships to fund your studies.</p>
           </Link>
-          <Link to="/scholarships" className="feature-card">
+          <Link to="/hostels" className="feature-card">
             <h3>Hostel Booking</h3>
             <p>Find and book hostels near your university directly through CampusMate.</p>
           </Link>
